@@ -25,7 +25,8 @@ internal class Program
 
         Console.WriteLine(proprietarios.Count);
 
-        pr.AddCarros(proprietarios);
+        //pr.AddCarros(proprietarios);
+        pr.listCarros(carros);
     }
 
     public void AddCarros(List<Proprietario> proprietarios)
@@ -57,6 +58,22 @@ internal class Program
         newCarroToAdd.proprietario = proprietarios[optionProprietario - 1];
 
         Console.WriteLine("Carro adicionado a lista!");
+    }
+
+    public void listCarros(List<Carro> carros)
+    {
+        foreach(Carro carro in carros)
+        {
+            Console.WriteLine("----");
+            Console.WriteLine("Modelo: " + carro.modelo);
+            Console.WriteLine("Marca: " + carro.marca);
+            Console.WriteLine("Placa: " + carro.placa);
+            Console.WriteLine("Cor: " + carro.cor);
+            Console.WriteLine("Nome Proprietario: " + carro.proprietario.nome);
+            Console.WriteLine("CPF Proprietario: " + carro.proprietario.cpf);
+            Console.WriteLine("Telefone Proprietario: " + carro.proprietario.telefone);
+            Console.WriteLine("----");
+        }
     }
 
 }
