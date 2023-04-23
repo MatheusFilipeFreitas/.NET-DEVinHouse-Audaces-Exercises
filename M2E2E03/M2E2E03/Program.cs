@@ -4,32 +4,15 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        Program pr = new Program();
+        Program program = new Program();
         List<Proprietario> proprietarios = new List<Proprietario>();
-        Proprietario proprietario1 = new Proprietario("Teste", "123456789101","55999999999");
-        Proprietario proprietario2 = new Proprietario("Teste2", "123456789101", "55999999999");
-        Proprietario proprietario3 = new Proprietario("Teste3", "123456789101", "55999999999");
-
-        proprietarios.Add(proprietario1);
-        proprietarios.Add(proprietario2);
-        proprietarios.Add(proprietario3);
-
         List<Carro> carros = new List<Carro>();
-        Carro carro1 =  new Carro("Carro", "Marca", "LLL9999", "Vermelho", proprietario1);
-        Carro carro2 = new Carro("Carro2", "Marca2", "LLL9999", "Branco", proprietario2);
-        Carro carro3 = new Carro("Carro3", "Marca3", "LLL9999", "Preto", proprietario3);
 
-        carros.Add(carro1);
-        carros.Add(carro2);
-        carros.Add(carro3);
-
-        Console.WriteLine(proprietarios.Count);
-
-        //pr.AddCarros(proprietarios);
-        pr.listCarros(carros);
+        program.InicializeData(proprietarios, carros);
+        program.Menu(proprietarios, carros);
     }
 
-    public void AddCarros(List<Proprietario> proprietarios)
+    public void AddCarros(List<Proprietario> proprietarios, List<Carro> carros)
     {
         Carro newCarroToAdd = new Carro();
         Console.WriteLine("Modelo: ");
@@ -57,10 +40,11 @@ internal class Program
         newCarroToAdd.cor = cor;
         newCarroToAdd.proprietario = proprietarios[optionProprietario - 1];
 
+        carros.Add(newCarroToAdd);
         Console.WriteLine("Carro adicionado a lista!");
     }
 
-    public void listCarros(List<Carro> carros)
+    public void ListCarros(List<Carro> carros)
     {
         foreach(Carro carro in carros)
         {
@@ -74,6 +58,64 @@ internal class Program
             Console.WriteLine("Telefone Proprietario: " + carro.proprietario.telefone);
             Console.WriteLine("----");
         }
+    }
+
+    public void Menu(List<Proprietario> proprietarios, List<Carro> carros)
+    {
+        Program program = new Program();
+        int option = 0;
+
+        do
+        {
+            Console.WriteLine("---MENU---");
+            Console.WriteLine("1-Cadastrar Carro");
+            Console.WriteLine("2-Consultar Carros");
+            Console.WriteLine("3-Sair");
+
+            if(int.TryParse(Console.ReadLine(), out option))
+            {
+                switch (option)
+                {
+                    case 1:
+                        program.AddCarros(proprietarios, carros);
+                        break;
+
+                    case 2:
+                        program.ListCarros(carros);
+                        break;
+
+                    default:
+                        Console.WriteLine("Opcao invalida");
+                        break;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Digite um numero inteiro segundo as opcoes!");
+            }
+
+        } while (option != 3);
+    }
+
+    public void InicializeData(List<Proprietario> proprietarios, List<Carro> carros)
+    {
+        
+        Proprietario proprietario1 = new Proprietario("Teste", "123456789101", "55999999999");
+        Proprietario proprietario2 = new Proprietario("Teste2", "123456789101", "55999999999");
+        Proprietario proprietario3 = new Proprietario("Teste3", "123456789101", "55999999999");
+
+        proprietarios.Add(proprietario1);
+        proprietarios.Add(proprietario2);
+        proprietarios.Add(proprietario3);
+
+        
+        Carro carro1 = new Carro("Carro", "Marca", "LLL9999", "Vermelho", proprietario1);
+        Carro carro2 = new Carro("Carro2", "Marca2", "LLL9999", "Branco", proprietario2);
+        Carro carro3 = new Carro("Carro3", "Marca3", "LLL9999", "Preto", proprietario3);
+
+        carros.Add(carro1);
+        carros.Add(carro2);
+        carros.Add(carro3);
     }
 
 }
