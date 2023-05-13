@@ -8,10 +8,10 @@ namespace M2S5E01
 {
     abstract class Cliente
     {
-        private string? _nome;
-        private string? _numeroConta;
-        private double? _saldo;
-        private string? _endereco;
+        private string _nome;
+        private string _numeroConta;
+        private double _saldo;
+        private string _endereco;
 
         public string Nome
         {
@@ -48,7 +48,7 @@ namespace M2S5E01
 
             set
             {
-                _saldo = value;
+                _saldo = (double)value;
             }
         }
 
@@ -65,9 +65,6 @@ namespace M2S5E01
             }
         }
 
-        public void ResumoCliente()
-        {
-            Console.WriteLine("");
-        }
+        abstract public void ResumoCliente();
     }
 }
