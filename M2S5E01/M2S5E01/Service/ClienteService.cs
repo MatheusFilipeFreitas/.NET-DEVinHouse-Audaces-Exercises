@@ -1,5 +1,6 @@
 ﻿using M2S5E01.Interface;
 using M2S5E01.model;
+using M2S5E01.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,6 +58,20 @@ namespace M2S5E01.service
             cliente = (PessoaFisica)AutoPreencherCliente(cliente);
 
             _clientes.Add(cliente);
+        }
+
+        private void CriarContaPessoaJuridica()
+        {
+            var clientePj = new PessoaJuridica();
+            Console.WriteLine("Digite o CNPJ");
+            clientePj.Cnpj = Console.ReadLine();
+            Console.WriteLine("Digite o Razão Social");
+            clientePj.RazaoSocial = Console.ReadLine();
+            Console.WriteLine("Digite o Inscrição Estadual");
+            clientePj.InscricaoEstadual = Console.ReadLine();
+
+            clientePj = (PessoaJuridica)AutoPreencherCliente(clientePj);
+            _clientes.Add(clientePj);
         }
 
         private Cliente AutoPreencherCliente(Cliente cliente)
