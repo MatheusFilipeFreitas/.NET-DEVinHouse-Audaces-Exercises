@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace M2S5E01
+namespace M2S5E01.model
 {
-    abstract class Cliente
+    public abstract class Cliente
     {
         private string _nome;
         private string _numeroConta;
@@ -34,12 +34,12 @@ namespace M2S5E01
             }
 
             set
-            { 
-                _numeroConta = value; 
+            {
+                _numeroConta = value;
             }
         }
 
-        public double? Saldo
+        public double Saldo
         {
             get
             {
@@ -52,7 +52,7 @@ namespace M2S5E01
             }
         }
 
-        public string? Endereco
+        public string Endereco
         {
             get
             {
@@ -65,6 +65,13 @@ namespace M2S5E01
             }
         }
 
-        abstract public void ResumoCliente();
+        public virtual string ResumoCliente()
+        {
+            return "Cliente \n{" +
+                "\nnome: " + Nome +
+                "\nendereco: " + Endereco +
+                "\nnumero da conta: " + NumeroConta +
+                "\nsaldo: " + Saldo;
+        }
     }
 }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace M2S5E01
+namespace M2S5E01.model
 {
-    internal class PessoaFisica: Cliente
+    internal class PessoaFisica : Cliente
     {
         private string _cpf;
         private DateTime _dataNascimento;
@@ -17,7 +17,7 @@ namespace M2S5E01
             {
                 return _cpf;
             }
-            
+
             set
             {
                 _cpf = value;
@@ -40,24 +40,20 @@ namespace M2S5E01
         public bool EhMaior()
         {
             DateTime today = DateTime.Today.Date;
-            
+
             int idade = today.Year - DataNascimento.Year;
-            if(idade >= 18)
+            if (idade >= 18)
             {
                 return true;
             }
             return false;
         }
 
-        override public void ResumoCliente()
+        public override string ResumoCliente()
         {
-            Console.WriteLine("Cliente \n{" +
-                "\nnome: " + Nome +
-                "\nendereco: " + Endereco +
+            return base.ResumoCliente() + 
                 "\ncpf: " + Cpf +
-                "\nnumero da conta: " + NumeroConta +
-                "\nsaldo: " + Saldo +
-                "\n}\n");
+                "\n}\n";
         }
 
     }
