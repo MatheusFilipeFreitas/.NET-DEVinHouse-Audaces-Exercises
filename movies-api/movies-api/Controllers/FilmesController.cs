@@ -3,7 +3,8 @@ using movies_api.Models;
 
 namespace movies_api.Controllers;
 
-[Route("api/v0/filmes")]
+[Route("api/v{version:apiVersion}/filmes")]
+[ApiVersion("1.0")]
 [ApiController]
 public class FilmesController
 {
@@ -11,7 +12,7 @@ public class FilmesController
     [HttpGet]
     public IEnumerable<Filme> Get()
     {
-        return null;
+        return MockFilmes.Filmes;
     }
 
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -19,22 +20,43 @@ public class FilmesController
     [HttpGet("{id}")]
     public IActionResult Get(int id)
     {
-        return null;
+        Filme filme = MockFilmes.Filmes.FirstOrDefault( propertie => propertie.Id == id);
+
+        if (filme is null)
+        {
+            return NotFound();
+        }
+
+        return Ok(filme);
     }
 
     [ProducesResponseType(StatusCodes.Status201Created)]
     [HttpPost]
     public IActionResult Post([FromBody] Filme filme)
     {
-        return null;
+        return CreatedAtAction(nameof(Get), new {id = filme.Id}, filme);
     }
     
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpPut("{id}")]
-    public IActionResult Put(int id, [FromBody] Filme filme)
+    public IActionResult Put(int id, [FromBody] Filme value)
     {
-        return null;
+        Filme filme = MockFilmes.Filmes.FirstOrDefault(propertie => propertie.Id == id);
+
+        if (filme is null)
+        {
+            return NotFound();
+        }
+
+        var index = MockFilmes.Filmes.IndexOf(filme);
+
+        if (index != -1)
+        {
+            MockFilmes.Filmes[index] = value;
+        }
+        
+        return NoContent();
     }
 
     [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -42,6 +64,15 @@ public class FilmesController
     [HttpDelete("{id}")]
     public IActionResult Delete(int id)
     {
-        return null;
+        Filme filme = MockFilmes.Filmes.FirstOrDefault(propertie => propertie.Id == id);
+
+        if (filme is null)
+        {
+            return NotFound();
+        }
+        
+        MockFilmes.Filmes.Remove(filme);
+        
+        return NoContent();
     }
 }
